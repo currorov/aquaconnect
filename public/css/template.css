@@ -1,0 +1,43 @@
+body {
+    background-color: #0076bd; /* Azul claro relacionado con el mar */
+    color: #FFF; /* Texto en color blanco */
+}
+.navbar {
+    background-color: #0076bd; /* Turquesa para la barra de navegación */
+}
+.footer {
+    background-color: #0076bd; /* Turquesa para el footer */
+    color: #FFF; /* Texto en color blanco */
+    padding: 20px 0;
+}
+.btn-primary {
+    background-color: #87CEEB;
+    border-color: #FFF;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #63C5DA; /* Azul más claro al pasar el ratón */
+    border-color: #63C5DA;
+}
+.bg-secondary {
+    background-color: #faf3e0; /* Color similar al de la arena de la playa */
+}
+
+.btn-warning {
+    background-color: #fdd835; /* Color amarillo suave similar al de la arena de la playa */
+    border-color: #fdd835; /* Color del borde similar al del botón */
+    color: #fff; /* Color del texto en los botones */
+}
+
+.nav-tabs {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+}
+
+.nav-link {
+width: 50%;
+text-align: center;
+}
