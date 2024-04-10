@@ -69,6 +69,7 @@ a, a:hover {
      object-fit: cover;
   position: relative;
 }
+
 .postcard .postcard__img_link {
   display: contents;
 }

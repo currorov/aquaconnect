@@ -30,5 +30,10 @@
   button:active {
     transform: scale(0.95);
   }
+
+  #map {
+    height: 200px;
+    width: 100%;
+}
   
   

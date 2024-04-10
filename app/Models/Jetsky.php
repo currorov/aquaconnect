@@ -9,27 +9,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class User
+ * Class Jetsky
  * 
  * @property int $id
- * @property string $name
- * @property string $surname
- * @property int $age
+ * @property string $model
+ * @property string $brand
+ * @property string $description
+ * @property int $user_id
  *
  * @package App\Models
  */
-class User extends Model
+class Jetsky extends Model
 {
-	protected $table = 'user';
+	protected $table = 'jetsky';
 	public $timestamps = false;
 
 	protected $casts = [
-		'age' => 'int'
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
-		'name',
-		'surname',
-		'age'
+		'model',
+		'brand',
+		'description',
+		'user_id'
 	];
 }

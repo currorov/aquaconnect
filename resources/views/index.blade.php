@@ -4,6 +4,14 @@
     <link href="/css/cards.css" rel="stylesheet">
     <link href="/css/filtros.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #mapa {
+            height: 300px;
+        }
+    </style>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -55,7 +63,56 @@
                                         </button>
                                     </form>
                                 </div>
-                                
+
+                                @php $count = 0 @endphp
+                                @foreach ($events as $event)
+                                    @php
+                                        // Obtén la ubicación del evento y divídela en latitud y longitud
+                                        $ubicacion = $event->location;
+                                        $ubicacion = trim($ubicacion, '()'); // Elimina los paréntesis
+                                        list($latitud, $longitud) = explode(',', $ubicacion); // Divide la cadena en dos partes
+                                        $latitud = floatval($latitud);
+                                        $longitud = floatval($longitud);
+                                    @endphp
+                                    @if ($count % 2 == 0)
+                                        <article class="postcard light blue">
+                                            <div id="map{{$loop->iteration}}" style="width: 60%; height: 34c0px;"></div>
+                                            <script>
+                                                var map{{$loop->iteration}} = L.map('map{{$loop->iteration}}').setView([{{$latitud}}, {{$longitud}}], 13);
+                                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                                    attribution: '© OpenStreetMap contributors'
+                                                }).addTo(map{{$loop->iteration}});
+                                                
+                                                var marker{{$loop->iteration}} = L.marker([{{$latitud}}, {{$longitud}}]).addTo(map{{$loop->iteration}})
+                                                    .bindPopup('Aquí será el evento')
+                                                    .openPopup();
+                                                map{{$loop->iteration}}.setView([{{$latitud}}, {{$longitud}}], 13);
+                                            </script>
+                                            <div class="postcard__text t-dark">
+                                                <h1 class="postcard__title blue">{{$event->title}}</h1>
+                                                <div class="postcard__subtitle small">
+                                                    <time datetime="{{ $event->date }}T{{ $event->time }}">
+                                                        <i class="fas fa-calendar-alt mr-2"></i>
+                                                        {{ date('Y-m-d', strtotime($event->date)) }} {{ date('H:i', strtotime($event->time)) }}
+                                                    </time>                                                    
+                                                </div>
+                                                <div class="postcard__bar"></div>
+                                                <div class="postcard__preview-txt">{{$event->desc_location}}</div>
+                                                <div class="postcard__preview-txt">{{$event->desc_event}}</div>
+                                                <div class="postcard__preview-txt">Personas apuntadas: {{$event->personas_apuntadas}}</div>
+                                                <ul class="postcard__tagbox">
+                                                    <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                                    <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                                                    <li class="tag__item play blue">
+                                                        <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </article>
+                                    @else
+                                    @endif
+                                    @php $count++ @endphp
+                                @endforeach
                                                                 
                                 <article class="postcard light blue">
                                     <a class="postcard__img_link" href="#">
@@ -130,4 +187,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </script>
+<!-- Incluye la biblioteca de Leaflet.js -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
 @endsection

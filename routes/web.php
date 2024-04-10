@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\IndexController;
 
 
 /*
@@ -15,9 +16,11 @@ use App\Http\Controllers\EventsController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [IndexController::class, "uploadIndex"])->name('index');
+
 
 //main routes
 Route::get('/create-event', [EventsController::class, "createEvent"])->name('createEvent');
+
+//event routes
+Route::post('/save-event', [EventsController::class, "submitCreateEvent"])->name('submitCreateEvent');

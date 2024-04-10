@@ -1,0 +1,15 @@
+body {
+    background-color: #f8f9fa;
+}
+.container {
+    max-width: 80%;
+    margin: 50px auto;
+    background-color: #f8f9fa;
+}
+.form-group label {
+    font-weight: bold;
+}
+#map {
+    height: 400px;
+    width: 100%;
+}
