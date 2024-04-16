@@ -21,6 +21,7 @@ Route::get('/', [IndexController::class, "uploadIndex"])->name('index');
 
 //main routes
 Route::get('/create-event', [EventsController::class, "createEvent"])->name('createEvent');
+Route::get('/login', [IndexController::class, "activeLogin"])->name('active_login');
 
 //event routes
 Route::post('/save-event', [EventsController::class, "submitCreateEvent"])->name('submitCreateEvent');

@@ -12,9 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * Class User
  * 
  * @property int $id
+ * @property string $username
  * @property string $name
  * @property string $surname
  * @property int $age
+ * @property string|null $image
  *
  * @package App\Models
  */
@@ -28,8 +30,10 @@ class User extends Model
 	];
 
 	protected $fillable = [
+		'username',
 		'name',
 		'surname',
-		'age'
+		'age',
+		'image'
 	];
 }

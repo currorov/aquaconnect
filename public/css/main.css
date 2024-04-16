@@ -31,9 +31,13 @@
     transform: scale(0.95);
   }
 
-  #map {
-    height: 200px;
-    width: 100%;
-}
+  .map {
+    height: 350px;
+    width: 90%;
+  }
+
+  .derecha{
+    margin-left: 475px;
+  }
   
   

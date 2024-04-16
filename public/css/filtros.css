@@ -4,40 +4,67 @@
   }
 
 .filtros {
-    background-image: linear-gradient(to top, #ffffff, #0076bd);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    /*background-image: linear-gradient(to top, #ffffff, #0076bd);*/
+    margin-left: -10px;
+    padding-top: 8%;
+    background-color: white;
+    border-right: #0076bd 5px solid;
+    
 }
-  
-  #filtersHeaderTitle {
-    margin: 2rem 0;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 2.5rem;
-  }
-  
-  .filter-option {
-    margin-bottom: 20px;
-  }
-  
-  .filter-title {
-    font-size: 1.5rem;
+
+.filtros img {
+  width: 80%;
+  margin: auto;
+  display: block;
+  margin-top: 20%;
+}
+
+.text_login {
+  color: #0076bd; /* Color del texto azul */
+  text-align: center; /* Centrado del texto */
+  margin-bottom: 20%;
+  margin-top: 20%;
+}
+
+.buttons_izquierda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%; /* Ajusta el margen superior según sea necesario */
+}
+
+/* Estilos personalizados para los campos de entrada */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
     margin-bottom: 10px;
-  }
-  
-  .filter-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .filter-item {
-    cursor: pointer;
-    padding: 5px 10px;
+    border: 1px solid #0076bd;
     border-radius: 5px;
-    background-color: #f3f5f7;
-    margin-bottom: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .filter-item:hover {
-    background-color: #e1e5ea;
-  }
-  
+    font-size: 16px;
+}
+
+/* Estilos para los mensajes de error */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Estilos para el enlace 'Forgot your password?' */
+#show-recoverPassword {
+    color: #0076bd;
+    text-decoration: none;
+}
+
+#show-recoverPassword:hover {
+    text-decoration: underline;
+}
+
+.recuperarContra {
+  text-align: center;
+  margin-bottom: 20%;
+}

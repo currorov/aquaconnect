@@ -33,6 +33,6 @@ class EventsController extends Controller
         $event->id_user = 1;
         $event->save();
 
-        return view('index');
+        return redirect()->route('index');
     }
 }

@@ -1,14 +1,16 @@
 body {
-    background-color: #0076bd; /* Azul claro relacionado con el mar */
+    background-color: #ffffff; /* Azul claro relacionado con el mar */
     color: #FFF; /* Texto en color blanco */
 }
 .navbar {
     background-color: #0076bd; /* Turquesa para la barra de navegación */
+    z-index: 100;
 }
 .footer {
     background-color: #0076bd; /* Turquesa para el footer */
     color: #FFF; /* Texto en color blanco */
     padding: 20px 0;
+    position: sticky;
 }
 .btn-primary {
     background-color: #87CEEB;

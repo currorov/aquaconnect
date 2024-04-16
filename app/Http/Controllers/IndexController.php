@@ -13,4 +13,13 @@ class IndexController extends Controller
 
         return view('index')->with('events', $arrayEvents);
     }
+
+    function activeLogin() {
+        session(["form_login" => "1"]);
+
+        $arrayEvents = Event::all();
+
+        return view('index')->with('events', $arrayEvents);
+
+    }
 }

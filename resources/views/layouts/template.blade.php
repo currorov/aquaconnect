@@ -15,12 +15,8 @@
         <a class="navbar-brand" href="#">
             <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-height: 80px;">
         </a>
-        <div class="mx-auto text-center d-flex justify-content-center align-items-center" style="height: 80px; padding-left: 20%;">
+        <div class="mx-auto text-center d-flex justify-content-center align-items-center" style="height: 80px;">
             <span class="navbar-text h1 text-white">AquaConnect</span>
-        </div>
-        <div class="navbar-nav ml-auto">
-            <button class="nav-item btn btn-primary" href="#">Iniciar sesión</button>
-            <button class="nav-item btn btn-primary ml-3" href="#">Registrarse</button>
         </div>
     </nav>
 
