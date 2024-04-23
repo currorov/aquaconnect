@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $username
+ * @property string $password
  * @property string $name
  * @property string $surname
  * @property int $age
@@ -29,8 +30,13 @@ class User extends Model
 		'age' => 'int'
 	];
 
+	protected $hidden = [
+		'password'
+	];
+
 	protected $fillable = [
 		'username',
+		'password',
 		'name',
 		'surname',
 		'age',

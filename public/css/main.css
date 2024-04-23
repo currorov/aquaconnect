@@ -1,4 +1,4 @@
-.custom-button {
+.custom-button, .custom-button-register {
     cursor: pointer;
     font-weight: 700;
     font-family: Helvetica,"sans-serif";
@@ -11,6 +11,11 @@
     align-items: center;
     font-size: 15px;
     color: white; 
+  }
+
+  .custom-button-register {
+    margin-top: 10%;
+    margin-left: 28%;
   }
   
   button:hover {

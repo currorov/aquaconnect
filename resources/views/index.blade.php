@@ -39,7 +39,7 @@
                     </button>
                 </div>
             @else
-                @if(!session()->has('form_login'))
+                @if(!session()->has('form_login') || session()->get('form_login') == 0)
                     <div class="buttons_izquierda">
                         <div class="text_login">
                             <h2>¡Acelera tu emoción!<br>Únete a AquaConnect<br>y vive la adrenalina <br>en cada ola</h2>
@@ -56,20 +56,23 @@
                         </form>
                     </div>
                     <div class="buttons_izquierda">
-                        <button type="submit" class="custom-button">
-                            <span>Registrarse</span>
-                            <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
-                                <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
-                            </svg>
-                        </button>
+                        <form action="{{ route('active_register') }}" method="GET">
+                        @csrf
+                            <button type="submit" class="custom-button">
+                                <span>Registrarse</span>
+                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 @elseif(session()->has('form_login') && session()->get('form_login') == 1)
                     <div class="buttons_izquierda">
                         <div class="text_login">
                             <h2>Iniciar Sesión</h2>
                         </div>
-                        <form action="{{route('active_login')}}" method="POST">
+                        <form action="{{route('checkLogin')}}" method="POST">
                             @csrf
                             <div>
                                 <input type="text" name="usernameLogin" id="usernameLogin" placeholder="Username" class="">
@@ -86,7 +89,7 @@
                             </div>
                         
                             <div class="recuperarContra">
-                                <a id="show-recoverPassword" class="">Forgot your password?</a>
+                                <a id="show-recoverPassword">¿Olvidó su contraseña?</a>
                             </div>
                         
                             <div>
@@ -101,16 +104,97 @@
                         </form>
                     </div>
                     <div class="buttons_izquierda mr-3">
-                        <button type="submit" class="custom-button">
-                            <span>Volver</span>
-                            <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
-                                <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
-                            </svg>
-                        </button>
+                        <form action="{{route('index')}}" method="POST">
+                            @csrf
+                            <button type="submit" class="custom-button">
+                                <span>Volver</span>
+                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </form>
                     </div>
                 @elseif(session()->has('form_login') && session()->get('form_login') == 2)
+                    <div class="buttons_izquierda">
+                        <div class="text_login">
+                            <h2>Registrarse</h2>
+                        </div>
+                        <form action="{{route('checkRegister')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div>
+                                <input type="text" name="nameRegister" id="nameRegister" placeholder="Nombre" class="">
+                                @error('nameRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+                        
+                            <div>
+                                <input type="text" name="surnameRegister" id="surnameRegister" placeholder="Apellido" class="">
+                                @error('surnameRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
 
+                            <div>
+                                <input type="text" name="usernameRegister" id="usernameRegister" placeholder="Username" class="">
+                                @error('usernameRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <input type="mail" name="mailRegister" id="mailRegister" placeholder="Mail" class="">
+                                @error('mailRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <input type="number" name="ageRegister" id="ageRegister" placeholder="Edad" class="">
+                                @error('ageRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <input type="password" name="passwordRegister" id="passwordRegister" placeholder="Contraseña" class="">
+                                @error('passwordRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label>Foto de Perfil</label>
+                                <input type="file" name="imageRegister" id="imageRegister" placeholder="image" class="">
+                                @error('imageRegister')
+                                    <p class="error-message">{{$message}}</p>
+                                @enderror
+                            </div>
+                        
+                            <div>
+                                <button type="submit" class="custom-button-register">
+                                    <span>Registrarse</span>
+                                    <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                        <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="buttons_izquierda mr-3">
+                        <form action="{{route('index')}}" method="POST">
+                            @csrf
+                            <button type="submit" class="custom-button">
+                                <span>Volver</span>
+                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
                 @endif
             @endif
         </div>
