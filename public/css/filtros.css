@@ -25,8 +25,8 @@
 .text_login {
   color: #0076bd; /* Color del texto azul */
   text-align: center; /* Centrado del texto */
-  margin-bottom: 10%;
-  margin-top: 10%;
+  margin-bottom: 3%;
+  margin-top: 0%;
 }
 
 .buttons_izquierda {
@@ -34,6 +34,14 @@
   flex-direction: column;
   align-items: center;
   margin-top: 6%; /* Ajusta el margen superior según sea necesario */
+}
+
+.buttons_izquierda_logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 15%;
 }
 
 /* Estilos personalizados para los campos de entrada */
@@ -58,7 +66,8 @@ input[type="file"] {
 .error-message {
     color: red;
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 /* Estilos para el enlace 'Forgot your password?' */

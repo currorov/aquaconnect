@@ -6,10 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\UsersEvent;
 
 
 class IndexController extends Controller
 {
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/'); 
+    }
+
     function uploadIndex() {
         session(["form_login" => "0"]);
         $arrayEvents = Event::all();
@@ -41,8 +51,8 @@ class IndexController extends Controller
 
         $username = $req->usernameLogin;
         $password = $req->passwordLogin;
-        if(auth::attempt(['name' => $username, 'password' => $password])) {
-            $user = User::where('name', $username)->first();
+        if(auth::attempt(['username' => $username, 'password' => $password])) {
+            $user = User::where('username', $username)->first();
 
             if($user->image != null) {
                 session(['userImage' => $user->image]);
@@ -75,6 +85,7 @@ class IndexController extends Controller
 
             $user = new User();
             $user->name = $req->nameRegister;
+            $user->username = $req->usernameRegister;
             $user->surname = $req->surnameRegister;
             $user->email = $req->mailRegister;
             $user->age = $req->ageRegister;
@@ -89,11 +100,8 @@ class IndexController extends Controller
             
             $user->save();
             
-            if(auth::attempt(['name' => $username, 'password' => $password])) {
-                $band = User::where('name', $username)->first();
-    
-                session(['activeBand' => $band]);
-                session(['bandname' => $band->bandname]);
+            if(auth::attempt(['username' => $username, 'password' => $password])) {
+                $user = User::where('username', $username)->first();
     
                 if($user->image != null) {
                     session(['userImage' => $user->image]);
@@ -107,5 +115,19 @@ class IndexController extends Controller
                 "imageRegister" => "Email already exists"
             ])->withInput();
         }
+    }
+
+    public function apuntaseAlEvento($eventId, $userId) {
+        $usersEvent = new UsersEvent();
+        $usersEvent->id_event = $eventId;
+        $usersEvent->id_user = $userId;
+
+        $usersEvent->save();
+
+        $event = Event::where('id', $eventId)->first();
+
+        $event->personas_apuntadas = $event->personas_apuntadas + 1;
+        $event->save();
+        return redirect()->route('index');
     }
 }

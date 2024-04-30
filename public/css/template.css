@@ -4,13 +4,15 @@ body {
 }
 .navbar {
     background-color: #0076bd; /* Turquesa para la barra de navegación */
-    z-index: 100;
+    z-index: 1101;
 }
 .footer {
     background-color: #0076bd; /* Turquesa para el footer */
     color: #FFF; /* Texto en color blanco */
     padding: 20px 0;
     position: sticky;
+    z-index: 1101;
+
 }
 .btn-primary {
     background-color: #87CEEB;

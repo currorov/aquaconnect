@@ -19,7 +19,23 @@
         <div class="filtros col-3">
             <!-- Contenido del div izquierdo aquí -->
             @if(auth()->check())
-                <img src="/img/usuario.png">
+                <form action="{{ route('logout') }}" method="GET">
+                    @csrf
+                    <div class="buttons_izquierda_logout">
+                        <button type="submit" class="custom-button">
+                            <span>Logout</span>
+                            <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+                @if(auth()->user()->image == '')
+                    <img src="/img/usuario.png" alt="Imagen predeterminada">
+                @else
+                    <img src="data:image/png;base64,{{ auth()->user()->image }}" alt="Imagen de usuario">
+                @endif    
                 <div class="buttons_izquierda">
                     <button type="submit" class="custom-button">
                         <span>Mis eventos</span>
@@ -123,42 +139,42 @@
                         <form action="{{route('checkRegister')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div>
-                                <input type="text" name="nameRegister" id="nameRegister" placeholder="Nombre" class="">
+                                <input type="text" name="nameRegister" id="nameRegister" placeholder="Nombre" value="{{ old('nameRegister') }}">
                                 @error('nameRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
                             </div>
                         
                             <div>
-                                <input type="text" name="surnameRegister" id="surnameRegister" placeholder="Apellido" class="">
+                                <input type="text" name="surnameRegister" id="surnameRegister" placeholder="Apellido" value="{{ old('surnameRegister') }}">
                                 @error('surnameRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <input type="text" name="usernameRegister" id="usernameRegister" placeholder="Username" class="">
+                                <input type="text" name="usernameRegister" id="usernameRegister" placeholder="Username" value="{{ old('usernameRegister') }}">
                                 @error('usernameRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <input type="mail" name="mailRegister" id="mailRegister" placeholder="Mail" class="">
+                                <input type="mail" name="mailRegister" id="mailRegister" placeholder="Mail" value="{{ old('mailRegister') }}">
                                 @error('mailRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <input type="number" name="ageRegister" id="ageRegister" placeholder="Edad" class="">
+                                <input type="number" name="ageRegister" id="ageRegister" placeholder="Edad" value="{{ old('ageRegister') }}">
                                 @error('ageRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
                             </div>
 
                             <div>
-                                <input type="password" name="passwordRegister" id="passwordRegister" placeholder="Contraseña" class="">
+                                <input type="password" name="passwordRegister" id="passwordRegister" placeholder="Contraseña">
                                 @error('passwordRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
@@ -166,7 +182,7 @@
 
                             <div>
                                 <label>Foto de Perfil</label>
-                                <input type="file" name="imageRegister" id="imageRegister" placeholder="image" class="">
+                                <input type="file" name="imageRegister" id="imageRegister" placeholder="image">
                                 @error('imageRegister')
                                     <p class="error-message">{{$message}}</p>
                                 @enderror
@@ -226,10 +242,9 @@
                                 </div>
                                 @foreach ($events as $event)
                                     @php
-                                        // Obtén la ubicación del evento y divídela en latitud y longitud
                                         $ubicacion = $event->location;
-                                        $ubicacion = trim($ubicacion, '()'); // Elimina los paréntesis
-                                        list($latitud, $longitud) = explode(',', $ubicacion); // Divide la cadena en dos partes
+                                        $ubicacion = trim($ubicacion, '()'); 
+                                        list($latitud, $longitud) = explode(',', $ubicacion);
                                         $latitud = floatval($latitud);
                                         $longitud = floatval($longitud);
                                     @endphp
@@ -259,28 +274,32 @@
                                                 <div class="postcard__preview-txt">{{$event->desc_event}}</div>
                                                 <div class="postcard__preview-txt">Personas apuntadas: {{$event->personas_apuntadas}}</div>
                                                 <ul class="postcard__tagbox">
-                                                    <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                                                    <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                                                    <li class="tag__item play blue">
-                                                        <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-                                                    </li>
+                                                    <form action="{{ route('apuntarseAlEveneto', ['eventId' => $event->id, 'userId' => auth()->user()->id]) }}" method="GET">
+                                                        @csrf
+                                                        <button type="submit" class="custom-button apuntarse">Apuntarme al evento</button>
+                                                    </form>
+                                                    <button onclick="toggleDropdown({{$event->id}})" class="custom-button ver-listado" data-id="{{ $event->id }}">Ver personas apuntadas</button>                                                
                                                 </ul>
                                             </div>
                                         </article>
                                 @endforeach
                             </div>
                         </section>
-                      </div>
-                      <div class="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <h2>Profile</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
-                      </div>
-                      <div class="tab-pane fade p-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                        <h2>Contact</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
-                      </div>
+                        </div>
+                        <div class="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <h2>Profile</h2>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
+                        </div>
+                        <div class="tab-pane fade p-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <h2>Contact</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
+                        </div>
+                        <div id="usersDropdown" class="users-dropdown">
+                            <h4>PERSONAS APUNTADAS</h4>
+                            
+                        </div>
                     </div>
                   </div>
             </div>
@@ -293,8 +312,55 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function obtenerDatos(eventId) {
+        $(document).ready(function(){
+            $.ajax({
+                url: 'http://localhost/obtener_eventos.php?id=' + eventId, // Incluir la ID del evento en la URL
+                method: 'GET', 
+                dataType: 'json', 
+                success: function(data) {
+                    mostrarDatos(data); // Llama a la función para mostrar los datos
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al obtener los datos de la tabla de eventos:', error);
+                }
+            });
+        });
+    }
+
+    function mostrarDatos(data) {
+        console.log(data);
+        var usersDropdown = document.getElementById('usersDropdown');
+        var html = "<h4 style='margin-top:30px; margin-bottom: -150px;'>PERSONAS APUNTADAS AL EVENTO </h4>";
+        // Recorre los datos y construye el HTML para mostrarlos
+        data.forEach(function(item) {
+            html += "<p style='color:black'>ID: " + item.id + ", ID de usuario: " + item.id_user + "</p>";
+        });
+        // Actualiza el contenido del usersDropdown con el HTML generado
+        usersDropdown.innerHTML = html;
+        // Muestra el usersDropdown
+        usersDropdown.style.right = '0';
+    }
+
+    function toggleDropdown(eventId) {
+        var usersDropdown = document.getElementById('usersDropdown');
+        if (usersDropdown.style.right === '0px') {
+            usersDropdown.style.right = '-800px'; 
+        } else {
+            obtenerDatos(eventId); 
+            usersDropdown.style.right = '0';
+        }
+    }
 </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</scrip>
 <!-- Incluye la biblioteca de Leaflet.js -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
