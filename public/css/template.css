@@ -2,6 +2,13 @@ body {
     background-color: #ffffff; /* Azul claro relacionado con el mar */
     color: #FFF; /* Texto en color blanco */
 }
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1101; /* Asegura que esté por encima del resto del contenido */
+}
+
 .navbar {
     background-color: #0076bd; /* Turquesa para la barra de navegación */
     z-index: 1101;
@@ -44,4 +51,7 @@ align-items: flex-start;
 .nav-link {
 width: 50%;
 text-align: center;
+}
+.contenido {
+    margin-top: 100px;
 }

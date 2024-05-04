@@ -27,7 +27,11 @@ Route::get('/logout', [IndexController::class, "logout"])->name('logout');
 Route::get('/register', [IndexController::class, "activeRegister"])->name('active_register');
 Route::post('/checklogin', [IndexController::class, "checkLogin"])->name('checkLogin');
 Route::post('/checkregister', [IndexController::class, "checkRegister"])->name('checkRegister');
-Route::get('/event/{eventId}/user/{userId}', [IndexController::class, "apuntaseAlEvento"])->name('apuntarseAlEveneto');
+Route::get('/event/{eventId}/user/{userId}', [IndexController::class, "apuntaseAlEvento"])->name('apuntarseAlEvento');
+Route::get('/event/{eventId}/user/{userId}/delete', [IndexController::class, "borrarDelEvento"])->name('borrarDelEvento');
 
 //event routes
 Route::post('/save-event', [EventsController::class, "submitCreateEvent"])->name('submitCreateEvent');
+Route::get('/miseventos/{userId}', [EventsController::class, "misEventos"])->name('miseventos');
+Route::get('/eventosapuntado/{userId}', [EventsController::class, "eventosapuntado"])->name('eventosapuntado');
+

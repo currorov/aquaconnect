@@ -23,8 +23,11 @@ class IndexController extends Controller
     function uploadIndex() {
         session(["form_login" => "0"]);
         $arrayEvents = Event::all();
+        $arrayUserEvent = UsersEvent::all();
 
-        return view('index')->with('events', $arrayEvents);
+        return view('index')->with('events', $arrayEvents)
+                            ->with('userEvents', $arrayUserEvent);
+
     }
 
     function activeLogin() {
@@ -127,6 +130,18 @@ class IndexController extends Controller
         $event = Event::where('id', $eventId)->first();
 
         $event->personas_apuntadas = $event->personas_apuntadas + 1;
+        $event->save();
+        return redirect()->route('index');
+    }
+
+    public function borrarDelEvento($eventId, $userId) {
+        UsersEvent::where('id_event', $eventId)
+              ->where('id_user', $userId)
+              ->delete();
+        
+        $event = Event::where('id', $eventId)->first();
+
+        $event->personas_apuntadas = $event->personas_apuntadas - 1;
         $event->save();
         return redirect()->route('index');
     }

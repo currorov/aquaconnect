@@ -36,24 +36,45 @@
                 @else
                     <img src="data:image/png;base64,{{ auth()->user()->image }}" alt="Imagen de usuario">
                 @endif    
-                <div class="buttons_izquierda">
-                    <button type="submit" class="custom-button">
-                        <span>Mis eventos</span>
-                        <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
-                            <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="buttons_izquierda">
-                    <button type="submit" class="custom-button">
-                        <span>Eventos apuntado</span>
-                        <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
-                            <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
-                        </svg>
-                    </button>
-                </div>
+                @isset($userEvents)
+                    <form action="{{ route('miseventos', ['userId' => auth()->user()->id]) }}" method="GET">
+                        @csrf
+                        <div class="buttons_izquierda">
+                            <button type="submit" class="custom-button">
+                                <span>Mis eventos</span>
+                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <form action="{{ route('index') }}" method="GET">
+                        @csrf
+                        <div class="buttons_izquierda">
+                            <button type="submit" class="custom-button">
+                                <span>Todos los eventos</span>
+                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                @endisset
+                <form action="{{ route('eventosapuntado', ['userId' => auth()->user()->id]) }}" method="GET">
+                    @csrf
+                    <div class="buttons_izquierda">
+                        <button type="submit" class="custom-button">
+                            <span>Eventos apuntado</span>
+                            <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
             @else
                 @if(!session()->has('form_login') || session()->get('form_login') == 0)
                     <div class="buttons_izquierda">
@@ -231,6 +252,7 @@
                                 <div class="h1 text-center text-dark" id="pageHeaderTitle">
                                     <span style="display: inline-block; margin-bottom: 10px;">EVENTOS</span>
                                     <form method="GET" action="{{ route('createEvent') }}" style="display: inline-block; margin-left: 90px; margin-top: 10px;">
+                                        @csrf
                                         <button type="submit" class="custom-button">
                                             <span>Crear Evento</span>
                                             <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -274,11 +296,40 @@
                                                 <div class="postcard__preview-txt">{{$event->desc_event}}</div>
                                                 <div class="postcard__preview-txt">Personas apuntadas: {{$event->personas_apuntadas}}</div>
                                                 <ul class="postcard__tagbox">
-                                                    <form action="{{ route('apuntarseAlEveneto', ['eventId' => $event->id, 'userId' => auth()->user()->id]) }}" method="GET">
-                                                        @csrf
-                                                        <button type="submit" class="custom-button apuntarse">Apuntarme al evento</button>
-                                                    </form>
-                                                    <button onclick="toggleDropdown({{$event->id}})" class="custom-button ver-listado" data-id="{{ $event->id }}">Ver personas apuntadas</button>                                                
+                                                    @auth
+                                                        @isset($userEvents)
+                                                            @php 
+                                                                $bolEntroUserEvent = true;
+                                                                $bolCorrectUserEvent = false;
+                                                            @endphp
+                                                            @foreach($userEvents as $userevent)
+                                                                @if(auth()->user()->id === $userevent->id_user && $event->id === $userevent->id_event)
+                                                                    @php 
+                                                                        $bolCorrectUserEvent = true;
+                                                                        $bolEntroUserEvent = false;
+                                                                    @endphp
+                                                                    <form action="{{ route('borrarDelEvento', ['eventId' => $event->id, 'userId' => auth()->user()->id]) }}" method="GET">
+                                                                        @csrf
+                                                                        <button type="submit" class="custom-button borrarse">Borrarme del evento</button>
+                                                                    </form>
+                                                                    <button onclick="toggleDropdown({{$event->id}})" class="custom-button ver-listado" data-id="{{ $event->id }}">Ver personas apuntadas</button>
+                                                                @endif 
+                                                            @endforeach
+                                                            @if(!$bolCorrectUserEvent && $bolEntroUserEvent)
+                                                                <form action="{{ route('apuntarseAlEvento', ['eventId' => $event->id, 'userId' => auth()->user()->id]) }}" method="GET">
+                                                                    @csrf
+                                                                    <button type="submit" class="custom-button apuntarse">Apuntarme al evento</button>
+                                                                </form>
+                                                                <button onclick="toggleDropdown({{$event->id}})" class="custom-button ver-listado" data-id="{{ $event->id }}">Ver personas apuntadas</button>
+                                                            @endif  
+                                                        @else  
+                                                            <form action="{{ route('apuntarseAlEvento', ['eventId' => $event->id, 'userId' => auth()->user()->id]) }}" method="GET">
+                                                                @csrf
+                                                                <button type="submit" class="custom-button borrarse">Eliminar evento</button>
+                                                            </form>
+                                                            <button onclick="toggleDropdown({{$event->id}})" class="custom-button ver-listado" data-id="{{ $event->id }}">Ver personas apuntadas</button>
+                                                        @endisset  
+                                                    @endauth
                                                 </ul>
                                             </div>
                                         </article>
@@ -312,18 +363,32 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function obtenerDatos(eventId) {
         $(document).ready(function(){
+            // Obtener la lista de IDs de usuario apuntados al evento
             $.ajax({
-                url: 'http://localhost/obtener_eventos.php?id=' + eventId, // Incluir la ID del evento en la URL
+                url: 'http://localhost/obtener_eventos.php?id=' + eventId,
                 method: 'GET', 
                 dataType: 'json', 
-                success: function(data) {
-                    mostrarDatos(data); // Llama a la función para mostrar los datos
+                success: function(events) {
+                    var userIds = events.map(function(event) {
+                        return event.id_user;
+                    });
+                    $.ajax({
+                        url: 'http://localhost/obtener_users.php',
+                        method: 'GET', 
+                        dataType: 'json', 
+                        success: function(users) {
+                            var usuariosApuntados = users.filter(function(user) {
+                                return userIds.includes(user.id);
+                            });
+                            mostrarDatos(usuariosApuntados); 
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error al obtener los datos de la tabla de usuarios:', error);
+                        }
+                    });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al obtener los datos de la tabla de eventos:', error);
@@ -332,19 +397,22 @@
         });
     }
 
+
     function mostrarDatos(data) {
-        console.log(data);
-        var usersDropdown = document.getElementById('usersDropdown');
-        var html = "<h4 style='margin-top:30px; margin-bottom: -150px;'>PERSONAS APUNTADAS AL EVENTO </h4>";
-        // Recorre los datos y construye el HTML para mostrarlos
-        data.forEach(function(item) {
-            html += "<p style='color:black'>ID: " + item.id + ", ID de usuario: " + item.id_user + "</p>";
-        });
-        // Actualiza el contenido del usersDropdown con el HTML generado
-        usersDropdown.innerHTML = html;
-        // Muestra el usersDropdown
-        usersDropdown.style.right = '0';
-    }
+    console.log(data);
+    var usersDropdown = document.getElementById('usersDropdown');
+    var html = "<h4 style='margin-top:30px; margin-bottom:-430px'>PERSONAS APUNTADAS AL EVENTO </h4>";
+    data.forEach(function(item) {
+        html += "<div style='border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;'>";
+        html += "<p style='margin-bottom: 5px; color:black'><strong>Nombre:</strong> " + item.name + "</p>";
+        html += "<p style='margin-bottom: 5px; color:black'><strong>Apellido:</strong> " + item.surname + "</p>";
+        html += "<p style='margin-bottom: 5px; color:black'><strong>Edad:</strong> " + item.age + "</p>";
+        html += "</div>";
+    });
+    usersDropdown.innerHTML = html;
+    usersDropdown.style.right = '0';
+}
+
 
     function toggleDropdown(eventId) {
         var usersDropdown = document.getElementById('usersDropdown');
@@ -358,7 +426,7 @@
 </script>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </scrip>
 <!-- Incluye la biblioteca de Leaflet.js -->

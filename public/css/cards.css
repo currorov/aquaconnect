@@ -116,6 +116,11 @@ a, a:hover {
   margin-right: 10px;
   color: #fff;
 }
+.custom-button.borrarse {
+  background-color: #d30303;
+  margin-right: 10px;
+  color: #fff;
+}
 
 .custom-button.ver-listado {
   background-color: #fd7e14;

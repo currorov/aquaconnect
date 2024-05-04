@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\UsersEvent;
 
 
 class EventsController extends Controller
@@ -34,5 +35,20 @@ class EventsController extends Controller
         $event->save();
 
         return redirect()->route('index');
+    }
+
+    function miseventos($userId) {
+        session(["form_login" => "0"]);
+        $arrayEvents = Event::where('id_user', $userId)->get();
+
+        return view('index')->with('events', $arrayEvents);
+    }
+
+    function eventosapuntado($userId) {
+        session(["form_login" => "0"]);
+        $idEvents = UsersEvent::where('id_user', $userId)->pluck('id_event');
+        $arrayEvents = Event::whereIn('id', $idEvents)->get();
+
+        return view('index')->with('events', $arrayEvents);
     }
 }

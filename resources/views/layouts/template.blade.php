@@ -11,18 +11,20 @@
 </head>
 <body>
     <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-height: 80px;">
-        </a>
-        <div class="mx-auto text-center d-flex justify-content-center align-items-center" style="height: 80px;">
-            <span class="navbar-text h1 text-white">AquaConnect</span>
-        </div>
-    </nav>
-
-    <!-- Contenido principal -->
-    @yield('content')
-
+    <header class="fixed-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">
+                <img src="/img/logo.png" alt="Logo" class="img-fluid" style="max-height: 80px;">
+            </a>
+            <div class="mx-auto text-center d-flex justify-content-center align-items-center" style="height: 80px;">
+                <span class="navbar-text h1 text-white">AquaConnect</span>
+            </div>
+        </nav>
+    </header>
+    <div class="contenido">
+        <!-- Contenido principal -->
+        @yield('content')
+    </div>
     <!-- Footer -->
     <footer class="footer text-center">
         <p>&copy; 2024 AquaConnect - Todos los derechos reservados</p>
