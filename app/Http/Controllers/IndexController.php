@@ -7,6 +7,7 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\UsersEvent;
+use App\Models\Jetsky;
 
 
 class IndexController extends Controller
@@ -24,9 +25,10 @@ class IndexController extends Controller
         session(["form_login" => "0"]);
         $arrayEvents = Event::all();
         $arrayUserEvent = UsersEvent::all();
-
+        $arrayJetsky = Jetsky::all();
         return view('index')->with('events', $arrayEvents)
-                            ->with('userEvents', $arrayUserEvent);
+                            ->with('userEvents', $arrayUserEvent)
+                            ->with('jetskys', $arrayJetsky);
 
     }
 

@@ -7,10 +7,9 @@
 @section('content')
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
 </head>
 <body>
-<div class="container">
+<div class="create-container">
     <h1 class="text-center mb-4 text-dark">CREAR EVENTO</h1>
     <form action="{{ route('submitCreateEvent') }}" method="POST" enctype="multipart/form-data">
         @csrf

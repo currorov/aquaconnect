@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\UsersEvent;
+use Illuminate\Support\Facades\Auth;
 
 
 class EventsController extends Controller
@@ -30,8 +31,8 @@ class EventsController extends Controller
         $event->location = $req->location;
         $event->desc_location = $req->desc_ubi;
         $event->desc_event = $req->desc_event;
-        $event->personas_apuntadas = 1;
-        $event->id_user = 1;
+        $event->personas_apuntadas = 0;
+        $event->id_user = Auth::id();
         $event->save();
 
         return redirect()->route('index');

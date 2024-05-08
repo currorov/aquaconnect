@@ -337,19 +337,60 @@
                             </div>
                         </section>
                         </div>
-                        <div class="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <h2>Profile</h2>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, cupiditate nam aperiam possimus, ratione modi enim inventore reiciendis ipsum mollitia, adipisci accusamus! Dolorem omnis illo incidunt ex, sit minus numquam.</p>
-                        </div>
-                        <div class="tab-pane fade p-3" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <h2>Contact</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere voluptates nostrum vel officiis! Magni animi assumenda numquam exercitationem facilis! Excepturi, doloremque illo. Voluptate, natus molestias? Enim repellendus earum ad sunt!</p>
-                        </div>
                         <div id="usersDropdown" class="users-dropdown">
                             <h4>PERSONAS APUNTADAS</h4>
                             
+                        </div>
+                        <div class="tab-pane fade p-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <section class="light">
+                                <div class="container py-2">
+                                    <div class="h1 text-center text-dark" id="pageHeaderTitle">
+                                        <span style="display: inline-block; margin-bottom: 10px;">TIENDA</span>
+                                        <form method="GET" action="{{ route('addJetsky') }}" style="display: inline-block; margin-left: 90px; margin-top: 10px;">
+                                            @csrf
+                                            <button type="submit" class="custom-button">
+                                                <span>Subir mi moto de agua</span>
+                                                <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
+                                                    <path d="M25 35.5C24.1716 35.5 23.5 36.1716 23.5 37C23.5 37.8284 24.1716 38.5 25 38.5V35.5ZM49.0607 38.0607C49.6464 37.4749 49.6464 36.5251 49.0607 35.9393L39.5147 26.3934C38.9289 25.8076 37.9792 25.8076 37.3934 26.3934C36.8076 26.9792 36.8076 27.9289 37.3934 28.5147L45.8787 37L37.3934 45.4853C36.8076 46.0711 36.8076 47.0208 37.3934 47.6066C37.9792 48.1924 38.9289 48.1924 39.5147 47.6066L49.0607 38.0607ZM25 38.5L48 38.5V35.5L25 35.5V38.5Z" fill="white"></path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    @if(isset($jetskys))
+                                    @foreach ($jetskys as $jetsky)
+                                        <article class="postcard light blue">
+                                            <a class="postcard__img_link" href="#">
+                                                <img class="postcard__img" src="data:image/jpeg;base64,{{ $jetsky->image }}" alt="Image Title" />
+                                            </a>
+                                            <div class="postcard__text t-dark">
+                                                <h1 class="postcard__title blue">{{$jetsky->brand}} - {{$jetsky->model}}</h1>
+                                                <div class="postcard__bar"></div>
+                                                <div class="postcard__preview-txt"><b>Fecha de matriculación:</b> {{ date('Y-m-d', strtotime($jetsky->date)) }}</div>
+                                                <div class="postcard__preview-txt"><b>Horas totales:</b> {{ $jetsky->hours }}</div>
+                                                <div class="postcard__preview-txt"><b>Matrícula:</b> {{ $jetsky->matricula }}</div>
+                                                <div class="postcard__preview-txt">{{$jetsky->description}}</div>
+                                                <ul class="postcard__tagbox">
+                                                    @auth
+                                                            @if(auth()->user()->id === $jetsky->user_id)
+                                                                <form action="{{ route('deleteJetsky', ['id' => $jetsky->id]) }}" method="GET">
+                                                                    @csrf
+                                                                    <button type="submit" class="custom-button borrarse">Borrar el anuncio</button>
+                                                                </form>
+                                                            @else 
+                                                                <form action="{{ route('infoJetsky', ['id' => $jetsky->id]) }}" method="GET">
+                                                                    @csrf
+                                                                    <button type="submit" class="custom-button apuntarse">Solicitar información</button>
+                                                                </form>
+                                                            @endif  
+                                                    @endauth
+                                                </ul>
+                                            </div>
+                                        </article>
+                                    @endforeach
+                                    @endif
+                                </div>
+                            </section>
                         </div>
                     </div>
                   </div>
