@@ -67,9 +67,10 @@ class JetskyController extends Controller
         $id_user = Auth::id();
         $jetsky = Jetsky::find($id);
         $user = User::find($id_user);
+        $userJetsky = User::find($jetsky->user_id);
 
         if ($jetsky && $user) {
-            //Mail::to($user->email)->send(new JetskyInfoMail($user, $jetsky));
+            Mail::to($user->email)->send(new JetskyInfoMail($user, $userJetsky, $jetsky));
             
             return redirect()->route('index');
         } else {

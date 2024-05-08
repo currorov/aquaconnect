@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\UsersEvent;
 use App\Models\Jetsky;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailRecoverPassword;
+
 
 
 class IndexController extends Controller
@@ -29,23 +32,69 @@ class IndexController extends Controller
         return view('index')->with('events', $arrayEvents)
                             ->with('userEvents', $arrayUserEvent)
                             ->with('jetskys', $arrayJetsky);
-
     }
 
     function activeLogin() {
         session(["form_login" => "1"]);
 
         $arrayEvents = Event::all();
-
-        return view('index')->with('events', $arrayEvents);
+        $arrayUserEvent = UsersEvent::all();
+        $arrayJetsky = Jetsky::all();
+        return view('index')->with('events', $arrayEvents)
+                            ->with('userEvents', $arrayUserEvent)
+                            ->with('jetskys', $arrayJetsky);
     }
 
     function activeRegister() {
         session(["form_login" => "2"]);
 
         $arrayEvents = Event::all();
+        $arrayUserEvent = UsersEvent::all();
+        $arrayJetsky = Jetsky::all();
+        return view('index')->with('events', $arrayEvents)
+                            ->with('userEvents', $arrayUserEvent)
+                            ->with('jetskys', $arrayJetsky);
+    }
 
-        return view('index')->with('events', $arrayEvents);
+    function recoverPassword() {
+        session(["form_login" => "3"]);
+
+        $arrayEvents = Event::all();
+        $arrayUserEvent = UsersEvent::all();
+        $arrayJetsky = Jetsky::all();
+        return view('index')->with('events', $arrayEvents)
+                            ->with('userEvents', $arrayUserEvent)
+                            ->with('jetskys', $arrayJetsky);
+    }
+
+    function checkRecover(Request $req) {
+        $this->validate($req, [
+            'mail' => 'required|email',
+        ]);
+
+        $user = User::where("email", $req->mail)->first();
+        if(!is_null($user)){
+            $cadenaAleatoria = '';
+            $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $numCaracteres = strlen($caracteres);
+            
+            for ($i = 0; $i < 10; $i++) {
+                $caracterAleatorio = $caracteres[rand(0, $numCaracteres - 1)];
+                $cadenaAleatoria .= $caracterAleatorio;
+            }
+        
+            $user->password = bcrypt($cadenaAleatoria);
+            
+            $user->save();
+            
+            Mail::to($user->email)->send(new MailRecoverPassword($user, $cadenaAleatoria));
+
+            return redirect()->route('index');
+        } else {
+            return back()->withErrors([
+                "mail" => "Email no existe"
+            ])->withInput();
+        }
     }
 
     function checkLogin(Request $req) {

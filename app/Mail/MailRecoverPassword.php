@@ -11,26 +11,25 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Mail\Mailables\Content;
 use App\Models\Jetsky;
 
-class JetskyInfoMail extends Mailable
+class MailRecoverPassword extends Mailable
 {
         use Queueable, SerializesModels;
     
         /**
          * Create a new message instance.
          */
-        public function __construct(User $user, User $userjetsky, Jetsky $jetsky)
+        public function __construct(User $user, $password)
         {
             $this->user = $user;
-            $this->userjetsky = $userjetsky;
-            $this->jetsky = $jetsky;
+            $this->password = $password;
         }
     
         public function build()
         {
             return $this->subject($this->user->mail)
-                        ->view('jetsky_info')
+                        ->view('recoverPass')
                         ->from($this->user->mail, $this->user->name)
-                        ->with(['user' => $this->user, 'jetsky' => $this->jetsky, 'userjetsky' => $this->userjetsky]);
+                        ->with(['user' => $this->user, 'password' => $this->password]);
         }
     
         /**
@@ -49,7 +48,7 @@ class JetskyInfoMail extends Mailable
         public function content(): Content
         {
             return new Content(
-                view: 'jetsky_info',
+                view: 'recoverPass',
             );
         }
     

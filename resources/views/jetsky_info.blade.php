@@ -14,8 +14,8 @@
     <p>Para obtener más información sobre este Jetsky, ponte en contacto con el propietario:</p>
     
     <ul>
-        <li><strong>Propietario:</strong> {{ $user->name }} {{ $user->surname }}</li>
-        <li><strong>Correo electrónico:</strong> <a href="mailto:{{ $user->email }}">{{ $user->email }}</a></li>
+        <li><strong>Propietario:</strong> {{ $userjetsky->name }} {{ $userjetsky->surname }}</li>
+        <li><strong>Correo electrónico:</strong> <a href="mailto:{{ $userjetsky->email }}">{{ $userjetsky->email }}</a></li>
     </ul>
 
     <p>Gracias,</p>
