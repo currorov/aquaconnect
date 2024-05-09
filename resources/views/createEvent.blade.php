@@ -15,7 +15,7 @@
         @csrf
         <div class="form-group">
             <label for="nombre">Título del Evento</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" required>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required>
             @error('nombre')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
@@ -23,14 +23,14 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="fecha">Fecha del Evento</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ old('fecha') }}" required>
                 @error('fecha')
                     <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
                 @enderror
             </div>
             <div class="form-group col-md-6">
                 <label for="hora">Hora del Evento</label>
-                <input type="time" class="form-control" id="hora" name="hora" required>
+                <input type="time" class="form-control" id="hora" name="hora" value="{{ old('hora') }}" required>
                 @error('hora')
                     <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
                 @enderror
@@ -39,9 +39,9 @@
         <div class="form-group">
             <div id="map"></div>
             <label for="lugar">Ubicación:</label>
-            <input type="text" id="location" name="location" >
-            <input type="range" min="-90" max="90" step="0.000001" id="latitude" hidden>
-            <input type="range" min="-180" max="180" step="0.000001" id="longitude" hidden>
+            <input type="text" id="location" name="location" value="{{ old('location') }}">
+            <input type="range" min="-90" max="90" step="0.000001" id="latitude"  value="{{ old('latitude') }}" hidden>
+            <input type="range" min="-180" max="180" step="0.000001" id="longitude" value="{{ old('longitude') }}" hidden>
         
             @error('latitude')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
@@ -49,14 +49,14 @@
         </div>
         <div class="form-group">
             <label for="lugar">Descripción de la Ubicación</label>
-            <textarea type="text" class="form-control" id="desc_ubi" name="desc_ubi" required></textarea>
+            <textarea type="text" class="form-control" id="desc_ubi" name="desc_ubi" value="{{ old('desc_ubi') }}" required></textarea>
             @error('desc_ubi')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
         </div>
         <div class="form-group">
             <label for="descripcion">Descripción del Evento</label>
-            <textarea class="form-control" id="desc_event" name="desc_event" rows="3" required></textarea>
+            <textarea class="form-control" id="desc_event" name="desc_event" rows="3" value="{{ old('desc_event') }}" required></textarea>
             @error('desc_event')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror

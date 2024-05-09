@@ -239,7 +239,7 @@
                             </div>
 
                             <div>
-                                <label>Foto de Perfil</label>
+                                <label style="color:black;">Foto de Perfil:</label>
                                 <input type="file" name="imageRegister" id="imageRegister" placeholder="image">
                                 @error('imageRegister')
                                     <p class="error-message">{{$message}}</p>
@@ -446,7 +446,7 @@
         $(document).ready(function(){
             // Obtener la lista de IDs de usuario apuntados al evento
             $.ajax({
-                url: 'http://localhost/obtener_eventos.php?id=' + eventId,
+                url: 'php/obtener_eventos.php?id=' + eventId,
                 method: 'GET', 
                 dataType: 'json', 
                 success: function(events) {
@@ -454,7 +454,7 @@
                         return event.id_user;
                     });
                     $.ajax({
-                        url: 'http://localhost/obtener_users.php',
+                        url: 'php/obtener_users.php',
                         method: 'GET', 
                         dataType: 'json', 
                         success: function(users) {

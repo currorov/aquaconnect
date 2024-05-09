@@ -21,21 +21,21 @@
         <div class="form-row">
             <div class="form-group col-md-4">
             <label for="marca">Marca:</label>
-            <input type="text" class="form-control" id="marca" name="marca" required>
+            <input type="text" class="form-control" id="marca" name="marca" value="{{ old('marca') }}" required>
             @error('nombre')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             </div>
             <div class="form-group col-md-4">
             <label for="modelo">Modelo:</label>
-            <input type="text" class="form-control" id="modelo" name="modelo" required>
+            <input type="text" class="form-control" id="modelo" name="modelo" value="{{ old('modelo') }}" required>
             @error('modelo')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             </div>
             <div class="form-group col-md-4">
                 <label for="matricula">Matricula:</label>
-                <input type="text" class="form-control" id="matricula" name="matricula" required>
+                <input type="text" class="form-control" id="matricula" name="matricula" value="{{ old('matricula') }}" required>
                 @error('matricula')
                     <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
                 @enderror
@@ -44,14 +44,14 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="fecha">Fecha de matriculación:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ old('fecha') }}" required>
                 @error('fecha')
                     <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
                 @enderror
             </div>
             <div class="form-group col-md-6">
                 <label for="hora">Horas totales:</label>
-                <input type="number" class="form-control" id="hora" name="hora" required>
+                <input type="number" class="form-control" id="hora" name="hora" value="{{ old('hora') }}" required>
                 @error('hora')
                     <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
                 @enderror
@@ -59,7 +59,7 @@
         </div>
         <div class="form-group">
             <label for="descripcion">Descripción:</label>
-            <textarea type="text" class="form-control" id="descripcion" name="descripcion" required></textarea>
+            <textarea type="text" class="form-control" id="descripcion" name="descripcion" value="{{ old('descripcion') }}" required></textarea>
             @error('descripcion')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
