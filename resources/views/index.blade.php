@@ -130,7 +130,7 @@
                             </div>
                       
                             <div>
-                                <button type="submit" class="custom-button">
+                                <button type="submit" class="custom-button ml-4">
                                     <span>Iniciar Sesión</span>
                                     <svg width="34" height="34" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="37" cy="37" r="35.5" stroke="white" stroke-width="3"></circle>
